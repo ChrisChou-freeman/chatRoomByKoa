@@ -19,7 +19,6 @@ const staticMid = staticFile(pathJoin(dirname(import.meta.url.split('file://')[1
 io.sockets.on('connection',socket=>{
   socket.on('online',sdata=>{
     const data = JSON.parse(sdata);
-    //check already login
     if(!clients[data.user]){
       // new user online
       users.unshift(data.user);
@@ -74,10 +73,6 @@ io.sockets.on('connection',socket=>{
 });
 
 router.get('/', async ctx=>{
-  if(!ctx.cookies){
-    await ctx.redirect('/signin');
-    return;
-  }
   const cookies = ctx.cookies;
   if(!cookies.get('user')){
     await ctx.redirect('/signin');
