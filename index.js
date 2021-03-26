@@ -2,9 +2,9 @@ import {default as Koa} from 'koa';
 import {default as Router} from '@koa/router';
 import {createServer} from 'http';
 import {Server as socketIO} from 'socket.io';
-import {default as render} from './lib/render.js';
 import {default as staticFile} from 'koa-static';
 import {dirname, join as pathJoin} from 'path';
+import {default as views} from 'koa-views';
 import {default as logger} from 'koa-logger';
 import {default as bodyParser} from 'koa-bodyparser';
 
@@ -15,6 +15,7 @@ const clients = [];
 const server = createServer(app.callback());
 const io = new socketIO(server);
 const staticMid = staticFile(pathJoin(dirname(import.meta.url.split('file://')[1]), '/public'));
+const render = views(pathJoin(dirname(import.meta.url.split('file://')[1]), '/../views'), {extension: 'pug'});
 
 io.sockets.on('connection',socket=>{
   socket.on('online',sdata=>{
