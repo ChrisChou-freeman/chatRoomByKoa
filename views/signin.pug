@@ -1,0 +1,22 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title Sign In
+  link(type='text/css' rel='stylesheet' href='stylesheets/sign.css')
+  link(type='text/css' rel='stylesheet' href='stylesheets/common.css')
+#content
+  form(style='margin-top:70px;' action='/signin' method='post')
+    .form_line
+      .form_label &#x767B;&#x5F55;&#x540D;&#xFF1A;
+      input(type='text' name='username')
+    .form_line
+      .form_label &#x5BC6;&#x7801;&#xFF1A;
+      input(type='password' name='password')
+    .form_line
+      .form_label
+      button.button.gray(type='submit') &#x767B;&#x5F55;
+      button.button.gray(type='reset') &#x53D6;&#x6D88;
+    .form_line
+      .form_label
+      |           &#x8FD8;&#x6CA1;&#x6709;&#x8D26;&#x53F7;&#xFF1F;
+      a(href='/signup') &#x6CE8;&#x518C;

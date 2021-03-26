@@ -1,0 +1,23 @@
+{
+  "name": "chatRoomByNode",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "a chat room build by nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Chris",
+  "license": "WTFPL",
+  "dependencies": {
+    "@koa/router": "^10.0.0",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^7.0.1",
+    "pug": "^3.0.2",
+    "socket.io": "^4.0.0"
+  }
+}

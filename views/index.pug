@@ -1,0 +1,33 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title Chating
+  script(type='text/javascript' src='javascripts/jquery.min.js')
+  script(type='text/javascript' src='javascripts/jquery.cookie.js')
+  script(type='text/javascript' src='javascripts/json2.js')
+  script(src='/socket.io/socket.io.js')
+  link(type='text/css' rel='stylesheet' href='stylesheets/common.css')
+  link(type='text/css' rel='stylesheet' href='stylesheets/chat.css')
+#contain
+  #content
+    #content_show
+      #contents
+    #content_saying
+      #toolbar
+      #input_content(contenteditable='true')
+      #sayingto
+        | &#x4F60;&#x597D; 
+        span#from
+        |  &#xFF0C;&#x4F60;&#x6B63;&#x5728;&#x5BF9; 
+        span#to
+        |  &#x8BF4;
+      #say
+        | &#x53D1;&#x9001;
+  #users_online
+    #usersbar
+      #user_label
+        | &#x5728;&#x7EBF;&#x7528;&#x6237;
+      #users_list
+        ul#list
+#ring(style='widht:0px; height:0px;')
+script(type='text/javascript' src='javascripts/chat.js')
