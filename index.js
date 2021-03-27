@@ -17,21 +17,24 @@ const io = new socketIO(server);
 const staticMid = staticFile(pathJoin(dirname(import.meta.url.split('file://')[1]), '/public'));
 const render = views(pathJoin(dirname(import.meta.url.split('file://')[1]), '/../views'), {extension: 'pug'});
 
-io.sockets.on('connection',socket=>{
-  socket.on('online',sdata=>{
+io.sockets.on('connection', socket=>{
+  socket.on('online', sdata=>{
     const data = JSON.parse(sdata);
     if(!clients[data.user]){
       // new user online
       users.unshift(data.user);
       for(let index in clients){
-        clients[index].emit('system',JSON.stringify({type:'online',msg:data.user,time:(new Date()).getTime()}));
-        clients[index].emit('userflush',JSON.stringify({users:users}));
+        clients[index].emit(
+          'system',
+          JSON.stringify({type:'online', msg:data.user, time:(new Date()).getTime()})
+        );
+        clients[index].emit('userflush', JSON.stringify({users:users}));
       }
-      socket.emit('system',JSON.stringify({type:'in',msg:'',time:(new Date()).getTime()}));
-      socket.emit('userflush',JSON.stringify({users:users}));
+      socket.emit('system', JSON.stringify({type:'in', msg:'', time:(new Date()).getTime()}));
+      socket.emit('userflush', JSON.stringify({users:users}));
     }
       clients[data.user] = socket;
-      socket.emit('userflush',JSON.stringify({users:users}));
+      socket.emit('userflush', JSON.stringify({users:users}));
   });
 
   socket.on('say',function(sdata){
@@ -44,12 +47,12 @@ io.sockets.on('connection',socket=>{
     if(data.to == "all"){
       // talk to all
       for(let index in clients){
-        clients[index].emit('say',msgData);
+        clients[index].emit('say', msgData);
       }
     }else{
       // talk to someone
-      clients[data.to].emit('say',msgData);
-      clients[data.from].emit('say',msgData);
+      clients[data.to].emit('say', msgData);
+      clients[data.from].emit('say', msgData);
     }
   });
   socket.on('offline',()=>{
@@ -62,14 +65,17 @@ io.sockets.on('connection',socket=>{
           users.splice(users.indexOf(index),1);
           delete clients[index];
           for(let index_inline in clients){
-            clients[index_inline].emit('system',JSON.stringify({type:'offline',msg:index,time:(new Date()).getTime()}));
-            clients[index_inline].emit('userflush',JSON.stringify({users:users}));
+            clients[index_inline].emit(
+              'system',
+              JSON.stringify({type:'offline', msg:index, time:(new Date()).getTime()})
+            );
+            clients[index_inline].emit('userflush', JSON.stringify({users:users}));
           }
           break;
         }
       }
     }
-    setTimeout(userOffline,5000);
+    setTimeout(userOffline, 5000);
   });
 });
 
@@ -81,11 +87,9 @@ router.get('/', async ctx=>{
   }
   await ctx.render('index');
 });
-
 router.get('/signin', async ctx=>{
   await ctx.render('signin');
 });
-
 router.post('/signin', async ctx=>{
   await ctx.cookies.set('user', ctx.request.body.username, {httpOnly: false});
   await ctx.redirect('/')
