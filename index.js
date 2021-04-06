@@ -2,7 +2,7 @@ import {createServer} from 'http';
 import {dirname, join as pathJoin} from 'path';
 import Koa from 'koa';
 import Router from '@koa/router';
-import socketIO from 'socket.io';
+import {Server as socketIO} from 'socket.io';
 import staticFile from 'koa-static';
 import views from 'koa-views';
 import logger from 'koa-logger';
