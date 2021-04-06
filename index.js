@@ -1,12 +1,12 @@
-import {default as Koa} from 'koa';
-import {default as Router} from '@koa/router';
 import {createServer} from 'http';
-import {Server as socketIO} from 'socket.io';
-import {default as staticFile} from 'koa-static';
 import {dirname, join as pathJoin} from 'path';
-import {default as views} from 'koa-views';
-import {default as logger} from 'koa-logger';
-import {default as bodyParser} from 'koa-bodyparser';
+import Koa from 'koa';
+import Router from '@koa/router';
+import socketIO from 'socket.io';
+import staticFile from 'koa-static';
+import views from 'koa-views';
+import logger from 'koa-logger';
+import bodyParser from 'koa-bodyparser';
 
 const app = new Koa();
 const router = Router();
@@ -14,8 +14,9 @@ const users = [];
 const clients = [];
 const server = createServer(app.callback());
 const io = new socketIO(server);
-const staticMid = staticFile(pathJoin(dirname(import.meta.url.split('file://')[1]), '/public'));
-const render = views(pathJoin(dirname(import.meta.url.split('file://')[1]), '/../views'), {extension: 'pug'});
+const prRootPath = dirname(import.meta.url.split('file://')[1]);
+const staticMid = staticFile(pathJoin(prRootPath, '/public'));
+const render = views(pathJoin(prRootPath, '/views'), {extension: 'pug'});
 
 io.sockets.on('connection', socket=>{
   socket.on('online', sdata=>{
